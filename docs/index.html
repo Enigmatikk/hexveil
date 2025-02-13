@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HexVeil - Code Protection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Consolas', monospace;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            line-height: 1.6;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-image: 
+                linear-gradient(0deg, transparent 24%, 
+                rgba(255, 255, 255, .03) 25%, 
+                rgba(255, 255, 255, .03) 26%, transparent 27%, transparent 74%, 
+                rgba(255, 255, 255, .03) 75%, 
+                rgba(255, 255, 255, .03) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, 
+                rgba(255, 255, 255, .03) 25%, 
+                rgba(255, 255, 255, .03) 26%, transparent 27%, transparent 74%, 
+                rgba(255, 255, 255, .03) 75%, 
+                rgba(255, 255, 255, .03) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+        }
+
+        .header {
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            border: 2px solid #fff;
+            background: #000;
+        }
+
+        .ascii {
+            white-space: pre;
+            margin: 20px 0;
+            color: #fff;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .section {
+            margin: 40px 0;
+            padding: 30px;
+            background: #000;
+            border: 1px solid #333;
+        }
+
+        h1, h2 {
+            margin: 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .feature {
+            padding: 20px;
+            border: 1px solid #333;
+            background: #0a0a0a;
+        }
+
+        .feature h3 {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+
+        .feature ul {
+            list-style: none;
+        }
+
+        .feature ul li {
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .feature ul li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: #666;
+        }
+
+        .code-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+        }
+
+        .code-header {
+            margin: -20px -20px 20px -20px;
+            padding: 10px 20px;
+            background: #000;
+            border-bottom: 1px solid #333;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        code {
+            display: block;
+            padding: 20px;
+            margin: 10px 0;
+            background: #000;
+            border: 1px solid #222;
+            overflow-x: auto;
+            line-height: 1.6;
+            font-family: 'Consolas', monospace;
+            white-space: pre;
+            color: #fff;
+        }
+
+        .code-section {
+            margin: 20px 0;
+            padding-left: 15px;
+            border-left: 2px solid #222;
+        }
+
+        .code-comment {
+            color: #666;
+            margin: 5px 0;
+            font-style: italic;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px;
+            border-top: 1px solid #333;
+            color: #666;
+        }
+
+        /* Syntax highlighting */
+        .keyword { color: #569cd6; }
+        .function { color: #dcdcaa; }
+        .comment { color: #608b4e; }
+        .string { color: #ce9178; }
+        .type { color: #4ec9b0; }
+        .preprocessor { color: #c586c0; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="ascii">
+ 888    888                   888     888          d8b 888 
+ 888    888                   888     888          Y8P 888 
+ 888    888                   888     888              888 
+ 8888888888  .d88b.  888  888 Y88b   d88P  .d88b.  888 888 
+ 888    888 d8P  Y8b `Y8bd8P'  Y88b d88P  d8P  Y8b 888 888 
+ 888    888 88888888   X88K     Y88o88P   88888888 888 888 
+ 888    888 Y8b.     .d8""8b.    Y888P    Y8b.     888 888 
+ 888    888  "Y8888  888  888     Y8P      "Y8888  888 888</div>
+        <div class="title">HexVeil - Advanced Code Protection Library</div>
+    </div>
+
+    <div class="section">
+        <h2>Overview</h2>
+        <p>HexVeil is a comprehensive code protection library for Windows applications, designed to prevent reverse engineering, debugging, and analysis.</p>
+    </div>
+
+    <div class="section">
+        <h2>Core Features</h2>
+        <div class="features">
+            <div class="feature">
+                <h3>[+] Anti-Debug Protection</h3>
+                <ul>
+                    <li>PEB flags detection</li>
+                    <li>Hardware breakpoint detection</li>
+                    <li>Thread context verification</li>
+                    <li>Anti-VM detection</li>
+                </ul>
+            </div>
+            <div class="feature">
+                <h3>[+] Code Protection</h3>
+                <ul>
+                    <li>Nanomite injection</li>
+                    <li>Polymorphic code generation</li>
+                    <li>Control flow flattening</li>
+                    <li>Dead code injection</li>
+                </ul>
+            </div>
+            <div class="feature">
+                <h3>[+] String Protection</h3>
+                <ul>
+                    <li>Multi-layer encryption</li>
+                    <li>Dynamic key generation</li>
+                    <li>String table obfuscation</li>
+                </ul>
+            </div>
+            <div class="feature">
+                <h3>[+] Memory Protection</h3>
+                <ul>
+                    <li>PE header protection</li>
+                    <li>Import table obfuscation</li>
+                    <li>Stack cleanup</li>
+                    <li>Memory flooding</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>VM Operations</h2>
+        <div class="features">
+            <div class="feature">
+                <h3>[+] Protected Operations</h3>
+                <ul>
+                    <li>ADD with obfuscation (0x12345678)</li>
+                    <li>SUB with obfuscation (0x87654321)</li>
+                    <li>MUL with obfuscation (0xFEDCBA98)</li>
+                    <li>DIV with obfuscation (0x89ABCDEF)</li>
+                    <li>XOR operations</li>
+                    <li>AND operations</li>
+                    <li>OR operations</li>
+                </ul>
+            </div>
+            <div class="feature">
+                <h3>[+] Advanced VM Features</h3>
+                <ul>
+                    <li>Custom instruction set</li>
+                    <li>State machine obfuscation</li>
+                    <li>Operation result mutation</li>
+                    <li>Bit rotation protection</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Code Mutation</h2>
+        <div class="features">
+            <div class="feature">
+                <h3>[+] Polymorphic Engine</h3>
+                <ul>
+                    <li>Dynamic stub generation</li>
+                    <li>Multiple template patterns</li>
+                    <li>Random junk code insertion</li>
+                    <li>Instruction substitution</li>
+                </ul>
+            </div>
+            <div class="feature">
+                <h3>[+] Assembly Mutation</h3>
+                <ul>
+                    <li>MOV instruction mutation</li>
+                    <li>PUSH/POP substitution</li>
+                    <li>LEA transformation</li>
+                    <li>Instruction compression</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Advanced Protection</h2>
+        <div class="features">
+            <div class="feature">
+                <h3>[+] Nanomite Protection</h3>
+                <ul>
+                    <li>INT3 breakpoint injection</li>
+                    <li>Dynamic byte restoration</li>
+                    <li>Exception-based flow control</li>
+                    <li>Instruction encryption</li>
+                </ul>
+            </div>
+            <div class="feature">
+                <h3>[+] Control Flow</h3>
+                <ul>
+                    <li>State machine obfuscation</li>
+                    <li>Random state mutation</li>
+                    <li>Fake execution paths</li>
+                    <li>Dead code blocks</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Anti-Analysis Features</h2>
+        <div class="features">
+            <div class="feature">
+                <h3>[+] PE Protection</h3>
+                <ul>
+                    <li>UPX header simulation</li>
+                    <li>Section name obfuscation</li>
+                    <li>Header corruption</li>
+                    <li>Resource encryption</li>
+                </ul>
+            </div>
+            <div class="feature">
+                <h3>[+] Import Protection</h3>
+                <ul>
+                    <li>Fake DLL imports</li>
+                    <li>API function obfuscation</li>
+                    <li>Import table mutation</li>
+                    <li>Dynamic resolution</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Advanced Usage Examples</h2>
+        <div class="code-container">
+            <div class="code-header">
+                <span>CODE:</span>
+            </div>
+            <code><span class="comment">// Polymorphic function protection</span>
+<span class="type">void</span>* protected_func = <span class="function">hexveil_generate_polymorphic_stub</span>(original_function);
+
+<span class="comment">// Advanced string protection</span>
+<span class="type">ProtectedString</span>* secure_str = <span class="function">hexveil_encrypt_string_ex</span>(<span class="string">"critical data"</span>);
+<span class="type">char</span>* decrypted = <span class="function">hexveil_decrypt_string</span>(secure_str);
+
+<span class="comment">// Control flow obfuscation</span>
+<span class="preprocessor">HEXVEIL_FLATTEN_BEGIN</span>(1)
+    <span class="preprocessor">HEXVEIL_FLATTEN_CASE</span>(1, {
+        <span class="comment">// Protected code block 1</span>
+        __next_state = 2;
+    })
+    <span class="preprocessor">HEXVEIL_FLATTEN_CASE</span>(2, {
+        <span class="comment">// Protected code block 2</span>
+        __next_state = 0;
+    })
+<span class="preprocessor">HEXVEIL_FLATTEN_END</span>()
+
+<span class="comment">// Code mutation</span>
+<span class="function">hexveil_mutate_code_block</span>(function_ptr, size);
+<span class="type">void</span>* mutated = <span class="function">hexveil_randomize_instructions</span>(function_ptr, size);
+
+<span class="comment">// Anti-analysis</span>
+<span class="preprocessor">HEXVEIL_BREAK_ANALYSIS</span>();
+<span class="preprocessor">HEXVEIL_FAKE_PATH</span>();
+<span class="preprocessor">HEXVEIL_ANTIDEBUG</span>();</code>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Quick Start</h2>
+        <p>Basic usage example:</p>
+        <div class="code-container">
+            <div class="code-header">
+                <span>CODE:</span>
+            </div>
+            <code>#include "hexveil.h"
+
+int main() {
+    HEXVEIL_PROTECT_ALL();  // Enable all protections
+    
+    HEXVEIL_TRY {
+        // Your protected code here
+    } 
+    HEXVEIL_EXCEPT {
+        // Handle tampering
+    }
+    
+    return 0;
+}</code>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Installation</h2>
+        <div class="code-container">
+            <div class="code-header">
+                <span>CODE:</span>
+            </div>
+            <code>git clone https://github.com/Enigmatikk/hexveil
+cd hexveil
+gcc test.c -o test.exe -I. -O2 -Wall</code>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Common Functions</h2>
+        <div class="code-container">
+            <div class="code-header">
+                <span>CODE:</span>
+            </div>
+            <code>// Initialize all protections
+HEXVEIL_PROTECT_ALL();
+
+// Protect specific function
+HEXVEIL_PROTECT_FUNCTION(function_name);
+
+// String encryption
+const char* protected_str = hexveil_encrypt_string_safe("secret");
+
+// Anti-debug check
+if(hexveil_detect_debugger_safe()) {
+    ExitProcess(1);
+}
+
+// Memory protection
+hexveil_protect_code_section();
+hexveil_corrupt_pe_headers();</code>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Notes</h2>
+        <div class="note">
+            <p>• Windows x86/x64 support only</p>
+            <p>• Some features require administrator rights</p>
+            <p>• May trigger antivirus software</p>
+            <p>• Not suitable for kernel-mode drivers</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>[ Made by Engimatikk | HexVeil v1.0 ]</p>
+    </div>
+</body>
+</html> 
